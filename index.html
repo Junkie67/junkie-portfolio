@@ -1,123 +1,554 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simon Mwaura | Software & Systems Engineer</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simon Mwaura — Full Stack Developer | AI-Driven Drug Interaction Predictor</title>
+<meta name="description" content="Portfolio of Simon Mwaura, Full Stack Developer — featuring an AI system that predicts drug-drug interactions and side effects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2027;
+    --ink-soft:#4A5058;
+    --paper:#EEF0EC;
+    --paper-alt:#E3E6DF;
+    --panel:#FBFBF9;
+    --brand:#1F5C57;
+    --brand-dark:#123330;
+    --safe:#2F7A4F;
+    --safe-bg:#E3EFE6;
+    --caution:#B3781F;
+    --caution-bg:#F5EAD6;
+    --severe:#A6362C;
+    --severe-bg:#F3DFDB;
+    --line:rgba(27,32,39,0.14);
+    --serif:'Source Serif 4', Georgia, serif;
+    --sans:'IBM Plex Sans', -apple-system, sans-serif;
+    --mono:'IBM Plex Mono', 'Courier New', monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  a{color:var(--brand-dark);}
+  :focus-visible{outline:2px solid var(--brand); outline-offset:3px;}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- Nav ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:10;
+    background:rgba(238,240,236,0.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brandmark{font-family:var(--mono); font-size:14px; letter-spacing:0.02em; color:var(--ink);}
+  .brandmark strong{color:var(--brand-dark);}
+  .navlinks{display:flex; gap:22px; font-size:14px;}
+  .navlinks a{text-decoration:none; color:var(--ink-soft);}
+  .navlinks a:hover{color:var(--brand-dark);}
+  @media (max-width:640px){ .navlinks{display:none;} }
+
+  /* ---------- Hero ---------- */
+  .hero{padding:76px 0 60px; position:relative; overflow:hidden;}
+  .hero-bg{
+    position:absolute; inset:-10% -5% auto -5%; height:120%;
+    z-index:0; pointer-events:none; opacity:0.55;
+  }
+  .hero-bg .node{fill:var(--brand); opacity:0.5;}
+  .hero-bg .edge{stroke:var(--brand); stroke-width:1; opacity:0.16;}
+  .hero-bg .pulse{
+    fill:none; stroke:var(--brand); stroke-width:1.4; opacity:0;
+    stroke-dasharray:220; animation:pulse-travel 5s linear infinite;
+  }
+  @keyframes pulse-travel{
+    0%{opacity:0; stroke-dashoffset:220;}
+    8%{opacity:0.65;}
+    45%{opacity:0.65;}
+    60%{opacity:0;}
+    100%{opacity:0; stroke-dashoffset:0;}
+  }
+  .hero > .wrap{position:relative; z-index:1;}
+
+  /* ---------- Scroll progress ---------- */
+  #progress{
+    position:fixed; top:0; left:0; height:2.5px; width:0%;
+    background:linear-gradient(90deg, var(--brand), var(--safe));
+    z-index:100; transition:width 0.08s linear;
+  }
+
+  /* ---------- Reveal-on-scroll ---------- */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- Depth / hover ---------- */
+  .out-list li, .stack-item, .result-card, .step, .demo{
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .out-list li:hover, .stack-item:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px -12px rgba(18,51,48,0.28);
+    border-color:var(--brand);
+  }
+  .demo:hover{box-shadow:0 18px 40px -20px rgba(18,51,48,0.35);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none;}
+    .hero-bg .pulse{animation:none;}
+  }
+  .hero-kicker{font-family:var(--mono); font-size:13px; color:var(--brand-dark); margin:0 0 14px;}
+  .hero h1{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(34px, 5vw, 52px);
+    line-height:1.08; letter-spacing:-0.01em;
+    margin:0 0 20px; max-width:14ch;
+  }
+  .hero p.lede{
+    font-size:18px; color:var(--ink-soft); max-width:52ch; margin:0 0 30px;
+  }
+  .hero-links{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--sans); font-size:14.5px; font-weight:500;
+    padding:11px 20px; border-radius:3px; text-decoration:none;
+    border:1px solid transparent; display:inline-block;
+  }
+  .btn-primary{background:var(--brand-dark); color:#fff;}
+  .btn-primary:hover{background:var(--ink);}
+  .btn-ghost{border-color:var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--brand-dark); color:var(--brand-dark);}
+
+  /* ---------- Demo panel ---------- */
+  .demo{
+    margin-top:56px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .demo-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 20px; border-bottom:1px solid var(--line);
+    font-family:var(--mono); font-size:12.5px; color:var(--ink-soft);
+  }
+  .dots{display:flex; gap:6px;}
+  .dots span{width:8px; height:8px; border-radius:50%; background:var(--paper-alt); display:inline-block;}
+  .demo-body{padding:26px 24px 28px;}
+  .demo-row{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px;}
+  .field{flex:1 1 200px;}
+  .field label{
+    display:block; font-family:var(--mono); font-size:11.5px;
+    text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .field input{
+    width:100%; padding:10px 12px; font-family:var(--mono); font-size:15px;
+    border:1px solid var(--line); border-radius:3px; background:#fff; color:var(--ink);
+  }
+  #checkBtn{
+    font-family:var(--sans); font-weight:500; font-size:14.5px;
+    background:var(--brand); color:#fff; border:none; border-radius:3px;
+    padding:11px 22px; cursor:pointer;
+  }
+  #checkBtn:hover{background:var(--brand-dark);}
+
+  .result{
+    margin-top:20px; border-radius:4px; border:1px solid var(--line);
+    padding:18px 20px; display:flex; gap:16px; align-items:flex-start;
+    opacity:0; transform:translateY(6px);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .result.show{opacity:1; transform:translateY(0);}
+  .severity-tag{
+    font-family:var(--mono); font-size:12px; font-weight:500;
+    padding:5px 10px; border-radius:3px; white-space:nowrap;
+    background:var(--caution-bg); color:var(--caution);
+    border:1px solid currentColor;
+  }
+  .result-text p{margin:0 0 6px; font-size:14.5px; color:var(--ink-soft);}
+  .result-text p:last-child{margin-bottom:0;}
+  .result-text strong{color:var(--ink);}
+
+  /* ---------- Sections ---------- */
+  section{padding:64px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-num{
+    font-family:var(--mono); font-size:12.5px; color:var(--brand-dark);
+    margin:0 0 10px; letter-spacing:0.02em;
+  }
+  h2{
+    font-family:var(--serif); font-weight:600; font-size:clamp(24px,3vw,30px);
+    margin:0 0 26px; max-width:20ch;
+  }
+
+  /* Problem stats */
+  .stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media (max-width:700px){ .stat-grid{grid-template-columns:1fr;} }
+  .stat{border-left:2px solid var(--severe); padding-left:16px;}
+  .stat .num{font-family:var(--serif); font-size:38px; font-weight:600; display:block; line-height:1;}
+  .stat p{margin:8px 0 0; font-size:14.5px; color:var(--ink-soft);}
+
+  /* Solution list */
+  .out-list{list-style:none; margin:0; padding:0; display:grid; gap:14px;}
+  .out-list li{
+    display:flex; gap:12px; align-items:flex-start;
+    font-size:16px; padding:14px 16px; background:var(--panel);
+    border:1px solid var(--line); border-radius:4px;
+  }
+  .out-list .chip{
+    font-family:var(--mono); font-size:11px; padding:3px 7px; border-radius:2px;
+    flex-shrink:0; margin-top:3px;
+  }
+  .chip.green{background:var(--safe-bg); color:var(--safe);}
+  .chip.amber{background:var(--caution-bg); color:var(--caution);}
+  .chip.red{background:var(--severe-bg); color:var(--severe);}
+  .chip.grey{background:var(--paper-alt); color:var(--ink-soft);}
+
+  /* How it works - sequence */
+  .steps{display:grid; gap:0;}
+  .step{
+    display:grid; grid-template-columns:44px 1fr; gap:18px;
+    padding:18px 0; border-top:1px solid var(--line);
+  }
+  .step:first-child{border-top:none;}
+  .step-n{font-family:var(--serif); font-size:22px; color:var(--brand-dark); font-weight:600;}
+  .step h3{margin:0 0 4px; font-size:16.5px; font-weight:600;}
+  .step p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* Tech stack */
+  .stack-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px;}
+  .stack-item{
+    font-family:var(--mono); font-size:13.5px; padding:10px 12px;
+    background:var(--panel); border:1px solid var(--line); border-radius:3px; color:var(--ink);
+  }
+
+  /* Impact */
+  .impact-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media (max-width:700px){ .impact-grid{grid-template-columns:1fr;} }
+  .impact-grid h3{font-size:14px; font-family:var(--mono); text-transform:none; color:var(--brand-dark); margin:0 0 10px;}
+  .impact-grid ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:15px;}
+  .impact-grid li{margin-bottom:6px;}
+
+  /* About */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px;}
+  @media (max-width:700px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{font-size:16px; color:var(--ink-soft); margin:0 0 14px;}
+  .skill-cats{display:grid; gap:16px;}
+  .skill-cats h4{
+    font-family:var(--mono); font-size:11.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--brand-dark); margin:0 0 8px;
+  }
+  .skill-cats p{font-size:14.5px; color:var(--ink-soft); margin:0;}
+
+  /* Footer / contact */
+  footer{padding:56px 0 64px;}
+  .contact-box{
+    background:var(--brand-dark); color:#F2F4F0; border-radius:6px;
+    padding:38px 36px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;
+  }
+  .contact-box h2{color:#fff; margin:0 0 8px; max-width:none;}
+  .contact-box p{color:#C9D3CC; margin:0; font-size:15px;}
+  .contact-links{display:flex; flex-direction:column; gap:8px; font-family:var(--mono); font-size:14.5px;}
+  .contact-links a{color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.35);}
+  .contact-links a:hover{border-color:#fff;}
+  .fine{margin-top:34px; font-size:13px; color:var(--ink-soft); font-family:var(--mono);}
+</style>
 </head>
 <body>
 
-    <div class="background-glow"></div>
+<div id="progress"></div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">SM<span>.</span></div>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact" class="btn-primary">Contact</a></li>
-        </ul>
+<div class="topbar">
+  <div class="wrap">
+    <div class="brandmark"><strong>Simon Mwaura</strong> · Full Stack Developer · Portfolio 2026</div>
+    <nav class="navlinks">
+      <a href="#problem">Problem</a>
+      <a href="#how">How it works</a>
+      <a href="#stack">Stack</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </nav>
+  </div>
+</div>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="badge">Available for Software & Systems Roles</div>
-        <h1>Hi, I'm <span class="gradient-text">Simon Mwaura</span></h1>
-        <p class="subtitle">Computer Science Graduate | Full-Stack & Systems Engineer</p>
-        <p class="description">
-            Building scalable web applications, integrating AI workflows, and optimizing secure system architectures[cite: 1].
-        </p>
-        <div class="hero-btns">
-            <a href="#projects" class="btn-primary">View Projects <i data-lucide="arrow-right"></i></a>
-            <a href="https://github.com/junkie67" target="_blank" class="btn-secondary"><i data-lucide="github"></i> GitHub</a>
+<header class="hero">
+  <svg class="hero-bg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <line class="edge" x1="90" y1="80" x2="260" y2="160"/>
+    <line class="edge" x1="260" y1="160" x2="180" y2="300"/>
+    <line class="edge" x1="260" y1="160" x2="440" y2="120"/>
+    <line class="edge" x1="440" y1="120" x2="600" y2="200"/>
+    <line class="edge" x1="440" y1="120" x2="520" y2="280"/>
+    <line class="edge" x1="600" y1="200" x2="720" y2="140"/>
+    <line class="edge" x1="600" y1="200" x2="680" y2="340"/>
+    <line class="edge" x1="180" y1="300" x2="320" y2="380"/>
+    <line class="edge" x1="320" y1="380" x2="520" y2="280"/>
+    <line class="edge" x1="90" y1="80" x2="120" y2="220"/>
+    <line class="edge" x1="120" y1="220" x2="180" y2="300"/>
+
+    <path class="pulse" d="M90,80 L260,160 L440,120 L600,200 L720,140"/>
+    <path class="pulse" style="animation-delay:1.6s" d="M180,300 L320,380 L520,280 L440,120"/>
+    <path class="pulse" style="animation-delay:3.1s" d="M90,80 L120,220 L180,300 L520,280 L680,340"/>
+
+    <circle class="node" cx="90" cy="80" r="4"/>
+    <circle class="node" cx="260" cy="160" r="5"/>
+    <circle class="node" cx="180" cy="300" r="4"/>
+    <circle class="node" cx="440" cy="120" r="6"/>
+    <circle class="node" cx="600" cy="200" r="4"/>
+    <circle class="node" cx="720" cy="140" r="4"/>
+    <circle class="node" cx="520" cy="280" r="5"/>
+    <circle class="node" cx="320" cy="380" r="4"/>
+    <circle class="node" cx="680" cy="340" r="4"/>
+    <circle class="node" cx="120" cy="220" r="3"/>
+  </svg>
+  <div class="wrap">
+    <p class="hero-kicker">SIMON MWAURA — FULL STACK DEVELOPER</p>
+    <h1>AI-Driven Drug Interaction &amp; Side Effects Predictor</h1>
+    <p class="lede">A full-stack, AI-powered system that checks two or more drugs for interactions and predicts side effects, with a color-coded severity grade and plain-language explanations — built end-to-end, from data pipeline to interface, to help patients and clinicians catch what's easy to miss.</p>
+    <div class="hero-links">
+      <a href="#how" class="btn btn-primary">See how it works</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+
+    <div class="demo">
+      <div class="demo-head">
+        <span>drug-interaction-checker.demo</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="demo-body">
+        <div class="demo-row">
+          <div class="field">
+            <label for="d1">Drug A</label>
+            <input id="d1" type="text" value="Warfarin" readonly>
+          </div>
+          <div class="field">
+            <label for="d2">Drug B</label>
+            <input id="d2" type="text" value="Aspirin" readonly>
+          </div>
         </div>
-    </header>
+        <button id="checkBtn" type="button">Check interaction</button>
 
-    <!-- Skills Section -->
-    <section id="skills">
-        <h2>Core Capabilities</h2>
-        <div class="skills-grid">
-            <div class="glass-card skill-card">
-                <i data-lucide="code-2" class="icon"></i>
-                <h3>Full-Stack Dev</h3>
-                <p>HTML5, CSS3, JavaScript/TypeScript, PHP, Python Frameworks[cite: 1]</p>
-            </div>
-            <div class="glass-card skill-card">
-                <i data-lucide="cpu" class="icon"></i>
-                <h3>AI & Integration</h3>
-                <p>AI-driven system design, prediction models, and RESTful API design[cite: 1]</p>
-            </div>
-            <div class="glass-card skill-card">
-                <i data-lucide="database" class="icon"></i>
-                <h3>Databases</h3>
-                <p>Relational database design, query optimization, MySQL, and PostgreSQL[cite: 1]</p>
-            </div>
-            <div class="glass-card skill-card">
-                <i data-lucide="network" class="icon"></i>
-                <h3>Infrastructure & Security</h3>
-                <p>Cloud basics (AWS/GCP), network routing, server security, and encryption[cite: 1]</p>
-            </div>
+        <div class="result" id="result">
+          <span class="severity-tag" id="sevTag">MODERATE</span>
+          <div class="result-text">
+            <p><strong>Interaction found.</strong> Combined use increases bleeding risk beyond either drug alone.</p>
+            <p><strong>Predicted effects:</strong> bruising, prolonged bleeding time, gastrointestinal irritation.</p>
+            <p><strong>Recommendation:</strong> flag for pharmacist review; consider spacing doses or an alternative analgesic.</p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</header>
 
-    <!-- Featured Projects Section -->
-    <section id="projects">
-        <h2>Featured Engineering Work</h2>
-        <div class="projects-grid">
-            
-            <!-- Project 1 -->
-            <div class="glass-card project-card">
-                <div class="project-tags">
-                    <span>AI / Machine Learning</span>
-                    <span>PostgreSQL</span>
-                    <span>Python/API</span>
-                </div>
-                <h3>AI-Driven Drug Interaction System</h3>
-                <p>An intelligent system designed to predict complex drug-to-drug interactions and analyze side effects using machine learning workflows[cite: 1].</p>
-                
-                <div class="architecture-box">
-                    <strong>Architecture Flow:</strong>
-                    <code>User Interface ➔ API Gateway ➔ AI Predictor Model ➔ PostgreSQL DB</code>
-                </div>
+<section id="problem">
+  <div class="wrap reveal">
+    <p class="section-num">01 — The problem</p>
+    <h2>Drug interactions are common, and easy to miss</h2>
+    <div class="stat-grid">
+      <div class="stat"><span class="num" data-count="30" data-suffix="%">0%</span><p>of adverse drug events are caused by drug-drug interactions.</p></div>
+      <div class="stat"><span class="num" data-count="2" data-suffix="+">0+</span><p>drugs is often all it takes to create a risk neither drug carries on its own.</p></div>
+      <div class="stat"><span class="num" data-count="1" data-suffix="">0</span><p>reference source (existing interaction databases) that's built for professionals, not the people taking the drugs.</p></div>
+    </div>
+  </div>
+</section>
 
-                <div class="project-links">
-                    <a href="https://github.com/junkie67" target="_blank" class="link-btn"><i data-lucide="github"></i> View Source Code</a>
-                </div>
-            </div>
+<section id="solution">
+  <div class="wrap reveal">
+    <p class="section-num">02 — The solution</p>
+    <h2>Enter two or more drugs, get a clear risk reading</h2>
+    <ul class="out-list">
+      <li><span class="chip grey">CHECK</span> Whether the drugs interact at all</li>
+      <li><span class="chip amber">GRADE</span> Severity, graded Mild / Moderate / Severe with a green / yellow / red marker</li>
+      <li><span class="chip grey">EXPLAIN</span> Predicted side effects, in plain language rather than clinical shorthand</li>
+      <li><span class="chip green">ADVISE</span> A clinical recommendation, including safer alternatives where they exist</li>
+    </ul>
+  </div>
+</section>
 
-            <!-- Project 2 -->
-            <div class="glass-card project-card">
-                <div class="project-tags">
-                    <span>Networking</span>
-                    <span>Infrastructure</span>
-                    <span>Security</span>
-                </div>
-                <h3>Enterprise Network & Server Infrastructure</h3>
-                <p>Designed and deployed unified multi-router network topologies with encrypted server endpoints and high network uptime[cite: 1].</p>
-                <div class="project-links">
-                    <a href="#contact" class="link-btn"><i data-lucide="layers"></i> Architecture Breakdown</a>
-                </div>
-            </div>
+<section id="how">
+  <div class="wrap reveal">
+    <p class="section-num">03 — How it works</p>
+    <h2>From input to recommendation</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div><h3>Input</h3><p>The user enters two or more drug names.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div><h3>Data</h3><p>The system queries the FDA's openFDA drug label database directly for each medication's official "drug interactions" labeling text.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div><h3>AI engine</h3><p>Rule-based NLP scans each label for mentions of the other drug, then grades severity using keyword matching (contraindicated language → severe, monitoring/caution language → moderate).</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div><h3>Output</h3><p>An interaction report is returned with a color-coded risk grade and a plain-language explanation.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section id="stack">
+  <div class="wrap reveal">
+    <p class="section-num">04 — Tech stack</p>
+    <h2>Built with</h2>
+    <div class="stack-grid">
+      <div class="stack-item">Python</div>
+      <div class="stack-item">Scikit-learn</div>
+      <div class="stack-item">Pandas</div>
+      <div class="stack-item">NLP</div>
+      <div class="stack-item">Streamlit / Flask</div>
+      <div class="stack-item">openFDA Label API</div>
+      <div class="stack-item">MATLAB</div>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="wrap reveal">
+    <p class="section-num">05 — Impact &amp; what's next</p>
+    <h2>Where this is headed</h2>
+    <div class="impact-grid">
+      <div>
+        <h3>Why it matters</h3>
+        <ul>
+          <li>Reduces preventable harm from drug combinations</li>
+          <li>Supports doctors and pharmacists in decision-making</li>
+          <li>Makes interaction data legible to non-specialists</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Next</h3>
+        <ul>
+          <li>Mobile app version</li>
+          <li>Pharmacy system integration</li>
+          <li>Kenyan drug-data coverage</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap reveal">
+    <p class="section-num">06 — About</p>
+    <h2>Simon Mwaura</h2>
+    <div class="about-grid">
+      <div>
+        <p>Computer Science graduate who picks up new technical disciplines in a fraction of the usual time — spanning full-stack development, network infrastructure, and, most recently, applied AI. Four years of hands-on delivery across technology and automotive environments, working independently or leading a team, remotely or onsite, without missing a deadline.</p>
+        <p>That range shows up in the work: base-level hardware configuration and re-programming of WiFi modems and routers, and unifying multiple routers and repeaters into single, seamless networks — skills currently in use as a WiFi &amp; Internet Technician at Zuku (contracted via Egypro), strengthening online security for servers and cyber cafe clients.</p>
+        <p>Recognised for building client trust fast — translating complex technical work into plain language for non-technical people — and for leadership that extends past the job description: coordinating community initiatives reaching 150+ participants, and consistently spotting opportunities that have helped friends and family launch and grow their own ventures.</p>
+      </div>
+      <div class="skill-cats">
+        <div>
+          <h4>Software &amp; systems</h4>
+          <p>Full-stack web development (HTML, CSS, JavaScript, PHP/Python), system &amp; software design, MATLAB, mobile app basics</p>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="glass-card contact-section">
-        <h2>Let's Build Together</h2>
-        <p>I am looking for software engineering and technical roles. Reach out directly below!</p>
-        <div class="contact-links">
-            <a href="mailto:simonmwaura670@gmail.com" class="btn-primary"><i data-lucide="mail"></i> Send Email[cite: 1]</a>
-            <a href="tel:0111222074" class="btn-secondary"><i data-lucide="phone"></i> Call 0111 222 074[cite: 1]</a>
+        <div>
+          <h4>Data &amp; cloud</h4>
+          <p>SQL (MySQL, PostgreSQL), AWS &amp; Google Cloud fundamentals, secure coding &amp; authentication</p>
         </div>
-    </section>
+        <div>
+          <h4>Networking</h4>
+          <p>WiFi/router hardware config &amp; re-programming, unifying multi-router networks into one system, diagnostics</p>
+        </div>
+        <div>
+          <h4>Leadership &amp; rapport</h4>
+          <p>Cross-functional &amp; community leadership, client/user rapport, opportunity identification</p>
+        </div>
+        <div>
+          <h4>Education</h4>
+          <p>BSc Computer Science, South Eastern Kenya University (2025)</p>
+        </div>
+        <div>
+          <h4>Additional</h4>
+          <p>Full, valid driving license</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        lucide.createIcons();
-    </script>
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <div>
+        <h2>Let's talk</h2>
+        <p>Open to collaborations and internships.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:simonmwaura670@gmail.com">simonmwaura670@gmail.com</a>
+        <a href="tel:+254111222074">0111 222 074</a>
+        <a href="https://github.com/junkie67" target="_blank" rel="noopener">github.com/junkie67</a>
+      </div>
+    </div>
+    <p class="fine">Nairobi, Kenya · Portfolio 2026</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('checkBtn').addEventListener('click', function(){
+    document.getElementById('result').classList.add('show');
+  });
+
+  // Scroll progress bar
+  const progressBar = document.getElementById('progress');
+  function updateProgress(){
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+  }
+  document.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  // Reveal-on-scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // Count-up stats
+  const counters = document.querySelectorAll('.num[data-count]');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseFloat(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const duration = 900;
+      const start = performance.now();
+      function tick(now){
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if(progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterObserver.unobserve(el);
+    });
+  }, {threshold:0.5});
+  counters.forEach(el => counterObserver.observe(el));
+</script>
+
 </body>
 </html>
