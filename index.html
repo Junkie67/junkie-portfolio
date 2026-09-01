@@ -133,7 +133,9 @@
     background:var(--caution-bg); color:var(--caution);
     border:1px solid currentColor;
   }
-  .result-text p{margin:0;color:var(--ink-soft)}
+  .result-text p{margin:0 0 6px; font-size:14.5px; color:var(--ink-soft);} 
+  .result-text p:last-child{margin-bottom:0;} 
+  .result-text strong{color:var(--ink);} 
 
   /* ---------- Sections ---------- */
   section{padding:64px 0;} 
@@ -241,13 +243,13 @@
     <h1>AI-Driven Drug Interaction &amp; Side Effects Predictor</h1>
     <p class="lede">A full-stack, AI-powered system that checks two or more drugs for interactions and predicts side effects, with a color-coded severity grade and plain-language explanations —[...]
     <div class="hero-links">
-      <a href="https://Junkie67.github.io/drug-interaction-checker/" class="btn btn-primary" target="_blank" rel="noopener">See the live demo</a>
+      <a href="#how" class="btn btn-primary">See how it works</a>
       <a href="#contact" class="btn btn-ghost">Get in touch</a>
     </div>
 
     <div class="demo">
       <div class="demo-head">
-        <a href="https://Junkie67.github.io/drug-interaction-checker/" target="_blank" rel="noopener">drug-interaction-checker.demo</a>
+        <span>drug-interaction-checker.demo</span>
         <div class="dots"><span></span><span></span><span></span></div>
       </div>
       <div class="demo-body">
@@ -426,11 +428,8 @@
 </footer>
 
 <script>
-  // keep the demo panel behaviour intact; animate result reveal
   document.getElementById('checkBtn').addEventListener('click', function(){
-    const res = document.getElementById('result');
-    res.style.opacity = 1;
-    res.style.transform = 'translateY(0)';
+    document.getElementById('result').classList.add('show');
   });
 </script>
 
