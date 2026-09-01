@@ -1,344 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simon Mwaura — Full Stack Developer | AI-Driven Drug Interaction Predictor</title>
-<meta name="description" content="Portfolio of Simon Mwaura, Full Stack Developer — featuring an AI system that predicts drug-drug interactions and side effects.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#0f1720;
-    --ink-soft:#445158;
-    --paper:#f6f8f7;
-    --panel:#ffffff;
-    --brand:#0e6b66;
-    --brand-2:#1f9a8f;
-    --accent:#f59e0b;
-    --safe:#2f7a4f;
-    --line:rgba(15,23,32,0.08);
-    --glass: rgba(255,255,255,0.7);
-    --serif:'Source Serif 4', Georgia, serif;
-    --sans:'IBM Plex Sans', -apple-system, sans-serif;
-    --mono:'IBM Plex Mono', 'Courier New', monospace;
-  }
-
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0; font-family:var(--sans); color:var(--ink); background:linear-gradient(180deg,#f3f6f5 0%, var(--paper) 40%); -webkit-font-smoothing:antialiased}
-  a{color:var(--brand);}
-  :focus-visible{outline:3px solid rgba(31,154,143,0.18); outline-offset:3px}
-
-  .wrap{max-width:1100px; margin:0 auto; padding:0 28px}
-
-  /* Topbar */
-  .topbar{position:sticky; top:0; z-index:20; background:rgba(250,251,250,0.6); backdrop-filter:blur(6px); border-bottom:1px solid var(--line)}
-  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:68px}
-  .brandmark{font-family:var(--mono); font-size:14px; letter-spacing:0.02em; color:var(--ink-soft)}
-  .brandmark strong{color:var(--brand)}
-  .navlinks{display:flex; gap:20px; align-items:center}
-  .navlinks a{font-size:14px; text-decoration:none; color:var(--ink-soft); padding:8px 10px; border-radius:7px}
-  .navlinks a:hover{background:var(--glass); color:var(--brand)}
-
-  /* Hero */
-  .hero{padding:72px 0 56px; position:relative}
-  .hero-inner{display:grid; grid-template-columns:1fr 420px; gap:36px; align-items:center}
-  .hero-card{padding:36px; background:linear-gradient(135deg,var(--panel) 0%, #f9fffd 100%); border-radius:14px; box-shadow:0 8px 30px rgba(22,43,38,0.06); border:1px solid var(--line)}
-  .hero-kicker{font-family:var(--mono); font-size:13px; color:var(--brand); margin:0 0 12px}
-  .hero h1{font-family:var(--serif); font-weight:700; font-size:clamp(34px,5vw,56px); line-height:1.02; margin:0 0 16px}
-  .hero p.lede{font-size:18px; color:var(--ink-soft); margin:0 0 22px}
-  .hero-links{display:flex; gap:12px; align-items:center}
-  .btn{font-family:var(--sans); font-weight:600; padding:12px 18px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:10px}
-  .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:white; box-shadow:0 6px 18px rgba(31,154,143,0.12)}
-  .btn-ghost{background:transparent; border:1px solid var(--line); color:var(--ink)}
-  .btn-primary:hover{transform:translateY(-2px)}
-
-  /* right panel (project teaser) */
-  .teaser{background:linear-gradient(180deg,#e9fffb, #f6fffe); border-radius:12px; padding:22px; border:1px solid rgba(15,23,32,0.03)}
-  .teaser h3{margin:0 0 8px; font-size:16px; color:var(--brand)}
-  .teaser p{margin:0 0 12px; color:var(--ink-soft); font-size:14px}
-  .teaser a{font-weight:600; color:var(--brand); text-decoration:none}
-
-  /* Demo panel restyle */
-  .demo{margin-top:28px; border-radius:12px; overflow:hidden; display:flex; gap:0}
-  .demo .demo-left{flex:1; padding:18px 20px; background:linear-gradient(180deg,#fff,#fbfffd); border-right:1px solid var(--line)}
-  .demo .demo-right{width:320px; background:linear-gradient(135deg,#f8fffe,#ecfffb); padding:18px; display:flex; flex-direction:column; justify-content:center; align-items:center}
-  .demo-head{display:flex; align-items:center; justify-content:space-between; font-family:var(--mono); font-size:13px; color:var(--ink-soft); margin-bottom:8px}
-  .dots{display:flex; gap:6px}
-  .dots span{width:9px; height:9px; border-radius:50%; background:linear-gradient(180deg,#fff,#f0f2f1); box-shadow:0 1px 0 rgba(0,0,0,0.04)}
-  .demo-row{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:12px}
-  .field label{display:block; font-family:var(--mono); font-size:12px; color:var(--ink-soft); margin-bottom:6px}
-  .field input{width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:linear-gradient(180deg,#fff,#fcfffe);}
-  #checkBtn{padding:10px 14px; border-radius:8px; background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#fff; border:none; cursor:pointer}
-
-  .result{margin-top:14px; padding:12px; border-radius:8px; background:linear-gradient(180deg,#fff,#fbfffd); border:1px solid var(--line); display:flex; gap:12px; align-items:flex-start}
-  .severity-tag{font-family:var(--mono); font-weight:700; padding:6px 10px; border-radius:8px}
-  .severity-tag.mild{background:#eaf7ef;color:var(--safe);border:1px solid rgba(47,122,79,0.08)}
-  .severity-tag.moderate{background:#fff6e8;color:var(--accent);border:1px solid rgba(245,158,11,0.08)}
-  .severity-tag.severe{background:#fff1f0;color:var(--danger);border:1px solid rgba(166,54,44,0.08)}
-  .result-text p{margin:0;color:var(--ink-soft)}
-
-  /* Sections styling */
-  section{padding:64px 0}
-  section + section{border-top:1px solid var(--line)}
-  .section-num{font-family:var(--mono); color:var(--brand); margin-bottom:12px}
-  h2{font-family:var(--serif); color:var(--ink); margin:0 0 20px}
-
-  /* stat grid */
-  .stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-  .stat{background:linear-gradient(180deg,#fff,#fbfffd); padding:18px; border-radius:10px; border:1px solid var(--line)}
-  .stat .num{font-family:var(--serif); font-size:32px; color:var(--brand)}
-
-  /* stack */
-  .stack-item{background:linear-gradient(180deg,#fff,#fcfffe); padding:10px 12px; border-radius:8px; border:1px solid var(--line); text-align:center}
-
-  /* about */
-  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:28px}
-
-  /* contact */
-  .contact-box{background:linear-gradient(135deg,#0e6b66,#1f9a8f); color:#fff; padding:32px; border-radius:10px}
-  .contact-links a{color:#fff; opacity:0.92}
-
-  /* responsive */
-  @media (max-width:980px){
-    .hero-inner{grid-template-columns:1fr}
-    .demo .demo-right{display:none}
-    .wrap{padding:0 20px}
-  }
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Mwaura | Software & Systems Engineer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="wrap">
-    <div class="brandmark"><strong>Simon Mwaura</strong> · Portfolio 2026</div>
-    <nav class="navlinks">
-      <a href="#problem">Problem</a>
-      <a href="#how">How it works</a>
-      <a href="#stack">Stack</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+    <div class="background-glow"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">SM<span>.</span></div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact" class="btn-primary">Contact</a></li>
+        </ul>
     </nav>
-  </div>
-</div>
 
-<header class="hero">
-  <div class="wrap hero-inner">
-    <div class="hero-card">
-      <p class="hero-kicker">SIMON MWAURA — FULL STACK DEVELOPER</p>
-      <h1>AI‑Driven Drug Interaction &amp; Side Effects Predictor</h1>
-      <p class="lede">A full‑stack, AI‑powered system that checks two or more drugs for interactions and predicts side effects, with a clear severity grade and plain‑language explanations — built end‑to‑end, from data pipeline to interface.</p>
-      <div class="hero-links">
-        <a href="https://Junkie67.github.io/drug-interaction-checker/" class="btn btn-primary" target="_blank" rel="noopener">See the live demo ↗</a>
-        <a href="#contact" class="btn btn-ghost">Get in touch</a>
-      </div>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="badge">Available for Software & Systems Roles</div>
+        <h1>Hi, I'm <span class="gradient-text">Simon Mwaura</span></h1>
+        <p class="subtitle">Computer Science Graduate | Full-Stack & Systems Engineer</p>
+        <p class="description">
+            Building scalable web applications, integrating AI workflows, and optimizing secure system architectures[cite: 1].
+        </p>
+        <div class="hero-btns">
+            <a href="#projects" class="btn-primary">View Projects <i data-lucide="arrow-right"></i></a>
+            <a href="https://github.com/junkie67" target="_blank" class="btn-secondary"><i data-lucide="github"></i> GitHub</a>
+        </div>
+    </header>
 
-      <div class="demo" style="margin-top:20px">
-        <div class="demo-left">
-          <div class="demo-head">
-            <span>Live demo preview</span>
-            <div class="dots"><span></span><span></span><span></span></div>
-          </div>
-          <div class="demo-body">
-            <div class="demo-row">
-              <div class="field">
-                <label for="d1">Drug A</label>
-                <input id="d1" type="text" value="Warfarin" readonly>
-              </div>
-              <div class="field">
-                <label for="d2">Drug B</label>
-                <input id="d2" type="text" value="Aspirin" readonly>
-              </div>
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>Core Capabilities</h2>
+        <div class="skills-grid">
+            <div class="glass-card skill-card">
+                <i data-lucide="code-2" class="icon"></i>
+                <h3>Full-Stack Dev</h3>
+                <p>HTML5, CSS3, JavaScript/TypeScript, PHP, Python Frameworks[cite: 1]</p>
             </div>
-            <button id="checkBtn" type="button">Check interaction</button>
-
-            <div class="result" id="result" aria-live="polite" style="display:block;opacity:0;transform:translateY(6px);transition:all .35s ease">
-              <span class="severity-tag moderate" id="sevTag">MODERATE</span>
-              <div class="result-text">
-                <p><strong>Interaction found.</strong> Combined use increases bleeding risk beyond either drug alone.</p>
-                <p><strong>Predicted effects:</strong> bruising, prolonged bleeding time, gastrointestinal irritation.</p>
-                <p><strong>Recommendation:</strong> flag for pharmacist review; consider spacing doses or an alternative analgesic.</p>
-              </div>
+            <div class="glass-card skill-card">
+                <i data-lucide="cpu" class="icon"></i>
+                <h3>AI & Integration</h3>
+                <p>AI-driven system design, prediction models, and RESTful API design[cite: 1]</p>
             </div>
-          </div>
+            <div class="glass-card skill-card">
+                <i data-lucide="database" class="icon"></i>
+                <h3>Databases</h3>
+                <p>Relational database design, query optimization, MySQL, and PostgreSQL[cite: 1]</p>
+            </div>
+            <div class="glass-card skill-card">
+                <i data-lucide="network" class="icon"></i>
+                <h3>Infrastructure & Security</h3>
+                <p>Cloud basics (AWS/GCP), network routing, server security, and encryption[cite: 1]</p>
+            </div>
         </div>
-        <div class="demo-right">
-          <h3>Try the live tool</h3>
-          <p>Queries the FDA label database in real-time and shows evidence-backed interaction notes.</p>
-          <a href="https://Junkie67.github.io/drug-interaction-checker/" target="_blank" rel="noopener" style="margin-top:8px;display:inline-block;font-weight:600;color:var(--brand)">Open demo ↗</a>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section id="projects">
+        <h2>Featured Engineering Work</h2>
+        <div class="projects-grid">
+            
+            <!-- Project 1 -->
+            <div class="glass-card project-card">
+                <div class="project-tags">
+                    <span>AI / Machine Learning</span>
+                    <span>PostgreSQL</span>
+                    <span>Python/API</span>
+                </div>
+                <h3>AI-Driven Drug Interaction System</h3>
+                <p>An intelligent system designed to predict complex drug-to-drug interactions and analyze side effects using machine learning workflows[cite: 1].</p>
+                
+                <div class="architecture-box">
+                    <strong>Architecture Flow:</strong>
+                    <code>User Interface ➔ API Gateway ➔ AI Predictor Model ➔ PostgreSQL DB</code>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://github.com/junkie67" target="_blank" class="link-btn"><i data-lucide="github"></i> View Source Code</a>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="glass-card project-card">
+                <div class="project-tags">
+                    <span>Networking</span>
+                    <span>Infrastructure</span>
+                    <span>Security</span>
+                </div>
+                <h3>Enterprise Network & Server Infrastructure</h3>
+                <p>Designed and deployed unified multi-router network topologies with encrypted server endpoints and high network uptime[cite: 1].</p>
+                <div class="project-links">
+                    <a href="#contact" class="link-btn"><i data-lucide="layers"></i> Architecture Breakdown</a>
+                </div>
+            </div>
+
         </div>
-      </div>
+    </section>
 
-    </div>
-
-    <aside class="teaser">
-      <h3>Featured</h3>
-      <p>Drug interaction checker — rule-based NLP over openFDA labels. Live demo and planned LLM upgrade (serverless) for plain‑language summaries.</p>
-      <a href="https://github.com/Junkie67/drug-interaction-checker" target="_blank" rel="noopener">View project on GitHub</a>
-    </aside>
-  </div>
-</header>
-
-<section id="problem">
-  <div class="wrap">
-    <p class="section-num">01 — The problem</p>
-    <h2>Drug interactions are common, and easy to miss</h2>
-    <div class="stat-grid">
-      <div class="stat"><span class="num">30%</span><p>of adverse drug events are caused by drug-drug interactions.</p></div>
-      <div class="stat"><span class="num">2+</span><p>drugs is often all it takes to create a risk neither drug carries on its own.</p></div>
-      <div class="stat"><span class="num">1</span><p>reference source (existing interaction databases) that's built for professionals, not the people taking the drugs.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="solution">
-  <div class="wrap">
-    <p class="section-num">02 — The solution</p>
-    <h2>Enter two or more drugs, get a clear risk reading</h2>
-    <ul class="out-list">
-      <li><span class="chip grey">CHECK</span> Whether the drugs interact at all</li>
-      <li><span class="chip amber">GRADE</span> Severity, graded Mild / Moderate / Severe with a green / yellow / red marker</li>
-      <li><span class="chip grey">EXPLAIN</span> Predicted side effects, in plain language rather than clinical shorthand</li>
-      <li><span class="chip green">ADVISE</span> A clinical recommendation, including safer alternatives where they exist</li>
-    </ul>
-  </div>
-</section>
-
-<section id="how">
-  <div class="wrap">
-    <p class="section-num">03 — How it works</p>
-    <h2>From input to recommendation</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-n">1</div>
-        <div><h3>Input</h3><p>The user enters two or more drug names.</p></div>
-      </div>
-      <div class="step">
-        <div class="step-n">2</div>
-        <div><h3>Data</h3><p>The system draws on DrugBank and FDA Adverse Event Reports for known interaction and side-effect data.</p></div>
-      </div>
-      <div class="step">
-        <div class="step-n">3</div>
-        <div><h3>AI engine</h3><p>A machine-learning classification model, paired with NLP over drug labels, scores the interaction and predicts likely effects.</p></div>
-      </div>
-      <div class="step">
-        <div class="step-n">4</div>
-        <div><h3>Output</h3><p>An interaction report is returned with a color-coded risk grade and a plain-language explanation.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="stack">
-  <div class="wrap">
-    <p class="section-num">04 — Tech stack</p>
-    <h2>Built with</h2>
-    <div class="stack-grid">
-      <div class="stack-item">Python</div>
-      <div class="stack-item">Scikit-learn</div>
-      <div class="stack-item">Pandas</div>
-      <div class="stack-item">NLP</div>
-      <div class="stack-item">Streamlit / Flask</div>
-      <div class="stack-item">DrugBank API</div>
-      <div class="stack-item">FDA Adverse Event API</div>
-      <div class="stack-item">MATLAB</div>
-    </div>
-  </div>
-</section>
-
-<section id="impact">
-  <div class="wrap">
-    <p class="section-num">05 — Impact &amp; what's next</p>
-    <h2>Where this is headed</h2>
-    <div class="impact-grid">
-      <div>
-        <h3>Why it matters</h3>
-        <ul>
-          <li>Reduces preventable harm from drug combinations</li>
-          <li>Supports doctors and pharmacists in decision-making</li>
-          <li>Makes interaction data legible to non-specialists</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Next</h3>
-        <ul>
-          <li>Mobile app version</li>
-          <li>Pharmacy system integration</li>
-          <li>Kenyan drug-data coverage</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="wrap">
-    <p class="section-num">06 — About</p>
-    <h2>Simon Mwaura</h2>
-    <div class="about-grid">
-      <div>
-        <p>Computer Science graduate with four years across technology and automotive environments, building full-stack software, network infrastructure, and now AI-driven healthcare tools. Comfortable working independently or leading a team, remotely or onsite, and delivers on deadlines.</p>
-        <p>Currently a WiFi &amp; Internet Technician at Zuku (contracted via Egypro), strengthening online security for servers and cyber cafe units. Previously supported software and network deployments at Guzzer Technologies, and led community initiatives reaching 150+ participants as Events Coordinator at Africa Leadership Youth Forum.</p>
-        <p>Known for translating complex technical work into plain language for non-technical clients — and for picking up new technical disciplines faster than most.</p>
-      </div>
-      <div class="skill-cats">
-        <div>
-          <h4>Software &amp; systems</h4>
-          <p>Full-stack web development (HTML, CSS, JavaScript, PHP/Python), system &amp; software design, MATLAB, mobile app basics</p>
+    <!-- Contact Section -->
+    <section id="contact" class="glass-card contact-section">
+        <h2>Let's Build Together</h2>
+        <p>I am looking for software engineering and technical roles. Reach out directly below!</p>
+        <div class="contact-links">
+            <a href="mailto:simonmwaura670@gmail.com" class="btn-primary"><i data-lucide="mail"></i> Send Email[cite: 1]</a>
+            <a href="tel:0111222074" class="btn-secondary"><i data-lucide="phone"></i> Call 0111 222 074[cite: 1]</a>
         </div>
-        <div>
-          <h4>Data &amp; cloud</h4>
-          <p>SQL (MySQL, PostgreSQL), AWS &amp; Google Cloud fundamentals, secure coding &amp; authentication</p>
-        </div>
-        <div>
-          <h4>Networking</h4>
-          <p>WiFi/router configuration &amp; re-programming, multi-router network design, diagnostics</p>
-        </div>
-        <div>
-          <h4>Leadership</h4>
-          <p>Cross-functional &amp; community leadership, client rapport, opportunity identification</p>
-        </div>
-        <div>
-          <h4>Education</h4>
-          <p>BSc Computer Science, South Eastern Kenya University (2025)</p>
-        </div>
-        <div>
-          <h4>Additional</h4>
-          <p>Full, valid driving license</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<footer id="contact">
-  <div class="wrap">
-    <div class="contact-box">
-      <div>
-        <h2>Let's talk</h2>
-        <p>Open to collaborations and internships.</p>
-      </div>
-      <div class="contact-links">
-        <a href="mailto:simonmwaura670@gmail.com">simonmwaura670@gmail.com</a>
-        <a href="tel:+254111222074">0111 222 074</a>
-        <a href="https://github.com/junkie67" target="_blank" rel="noopener">github.com/junkie67</a>
-      </div>
-    </div>
-    <p class="fine">Nairobi, Kenya · Portfolio 2026</p>
-  </div>
-</footer>
-
-<script>
-  // keep the demo panel behaviour intact; animate result reveal
-  document.getElementById('checkBtn').addEventListener('click', function(){
-    const res = document.getElementById('result');
-    res.style.opacity = 1;
-    res.style.transform = 'translateY(0)';
-  });
-</script>
-
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
